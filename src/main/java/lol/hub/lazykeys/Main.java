@@ -51,8 +51,8 @@ public class Main {
                             .append(" ")
                             .append(key.state() ?
                                     Component.literal("enabled").withColor(0x00AA00) :
-                                    Component.literal("enabled").withColor(0xAA0000))
-                            .append("!");
+                                    Component.literal("disabled").withColor(0xAA0000))
+                            .append(".");
                     mc.player.sendSystemMessage(message);
                     if (!key.state()) {
                         key.gameKey().setDown(false);
