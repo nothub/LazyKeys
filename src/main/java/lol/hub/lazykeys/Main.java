@@ -8,64 +8,60 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.List;
 
 @Mod(value = "lazykeys", dist = {Dist.CLIENT})
 public class Main {
-    private static final KeyMapping KEYBIND_TOGGLE_USE = new KeyMapping(
-            "key.lazykeys.use",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_KP_2,
-            "category.lazykeys"
-    );
-    private static final KeyMapping KEYBIND_TOGGLE_SNEAK = new KeyMapping(
-            "key.lazykeys.sneak",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_KP_3,
-            "category.lazykeys"
-    );
-
     public Main(IEventBus modEventBus, ModContainer modContainer) {
-        Minecraft mc = Minecraft.getInstance();
+        var mc = Minecraft.getInstance();
+        var keys = List.of(
+                new Key(mc.options.keyUse,
+                        new KeyMapping(
+                                "key.lazykeys.use",
+                                InputConstants.Type.KEYSYM,
+                                GLFW.GLFW_KEY_KP_2,
+                                "category.lazykeys")),
+                new Key(mc.options.keyShift,
+                        new KeyMapping(
+                                "key.lazykeys.sneak",
+                                InputConstants.Type.KEYSYM,
+                                GLFW.GLFW_KEY_KP_3,
+                                "category.lazykeys"))
+        );
 
         modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
-            event.register(KEYBIND_TOGGLE_USE);
-            event.register(KEYBIND_TOGGLE_SNEAK);
+            for (Key key : keys) {
+                event.register(key.stateKey());
+            }
         });
 
-        AtomicBoolean activeUse = new AtomicBoolean(false);
-        AtomicBoolean activeSneak = new AtomicBoolean(false);
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Pre event) -> {
             if (mc.player == null) return;
-            if (KEYBIND_TOGGLE_USE.consumeClick()) {
-                activeUse.set(!activeUse.get());
-                mc.player.sendSystemMessage(Component.literal("use active: " + activeUse.get()));
-                if (!activeUse.get()) {
-                    mc.options.keyUse.setDown(false);
+            for (Key key : keys) {
+                if (key.stateKey().consumeClick()) {
+                    key.toggle();
+                    var message = Component.literal("Lazy")
+                            .append(" ")
+                            .append(key.gameKey().getKey().getDisplayName().getString().toLowerCase())
+                            .append(" ")
+                            .append(key.state() ?
+                                    Component.literal("enabled").withColor(0x00AA00) :
+                                    Component.literal("enabled").withColor(0xAA0000))
+                            .append("!");
+                    mc.player.sendSystemMessage(message);
+                    if (!key.state()) {
+                        key.gameKey().setDown(false);
+                    }
                 }
-            }
-            if (KEYBIND_TOGGLE_SNEAK.consumeClick()) {
-                activeSneak.set(!activeSneak.get());
-                mc.player.sendSystemMessage(Component.literal("sneak active: " + activeSneak.get()));
-                if (!activeSneak.get()) {
-                    mc.options.keyShift.setDown(false);
+                if (key.state()) {
+                    key.gameKey().setDown(true);
                 }
-            }
-            if (activeUse.get()) {
-                mc.options.keyUse.setDown(true);
-            }
-            if (activeSneak.get()) {
-                mc.options.keyShift.setDown(true);
             }
         });
-
-        modContainer.registerConfig(ModConfig.Type.COMMON, new ModConfigSpec.Builder().build());
     }
 }
