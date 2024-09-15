@@ -1,3 +1,3 @@
 # Lazy Keys
 
-For efficient AFK farming.
+Automated key-pressing for enhanced afk farming efficiency.
