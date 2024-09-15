@@ -1,4 +1,5 @@
 {
   "category.lazykeys": "Lazy Keys",
-  "key.lazykeys.rclick": "Toggle Right Click"
+  "key.lazykeys.use": "Toggle Use",
+  "key.lazykeys.sneak": "Toggle Sneak"
 }

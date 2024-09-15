@@ -1,66 +1,69 @@
 package lol.hub.lazykeys;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.logging.LogUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.lwjgl.glfw.GLFW;
-import org.slf4j.Logger;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.IntStream;
 
 @Mod(value = "lazykeys", dist = {Dist.CLIENT})
 public class Main {
-    private static final Logger log = LogUtils.getLogger();
-
-    private static final KeyMapping KEYBIND_TOGGLE_RCLICK = new KeyMapping(
-            "key.lazykeys.rclick",
+    private static final KeyMapping KEYBIND_TOGGLE_USE = new KeyMapping(
+            "key.lazykeys.use",
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_F12,
+            GLFW.GLFW_KEY_KP_2,
+            "category.lazykeys"
+    );
+    private static final KeyMapping KEYBIND_TOGGLE_SNEAK = new KeyMapping(
+            "key.lazykeys.sneak",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_KP_3,
             "category.lazykeys"
     );
 
     public Main(IEventBus modEventBus, ModContainer modContainer) {
         Minecraft mc = Minecraft.getInstance();
 
-        modEventBus.addListener((RegisterKeyMappingsEvent event ) -> {
-            event.register(KEYBIND_TOGGLE_RCLICK);
+        modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
+            event.register(KEYBIND_TOGGLE_USE);
+            event.register(KEYBIND_TOGGLE_SNEAK);
         });
 
-        AtomicBoolean activeRClick = new AtomicBoolean(false);
+        AtomicBoolean activeUse = new AtomicBoolean(false);
+        AtomicBoolean activeSneak = new AtomicBoolean(false);
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Pre event) -> {
             if (mc.player == null) return;
-            if (KEYBIND_TOGGLE_RCLICK.consumeClick()) {
-                var newState = !activeRClick.get();
-                log.info("right click state: {}", newState);
-                activeRClick.set(newState);
+            if (KEYBIND_TOGGLE_USE.consumeClick()) {
+                activeUse.set(!activeUse.get());
+                mc.player.sendSystemMessage(Component.literal("use active: " + activeUse.get()));
+                if (!activeUse.get()) {
+                    mc.options.keyUse.setDown(false);
+                }
             }
-            if (activeRClick.get()) {
+            if (KEYBIND_TOGGLE_SNEAK.consumeClick()) {
+                activeSneak.set(!activeSneak.get());
+                mc.player.sendSystemMessage(Component.literal("sneak active: " + activeSneak.get()));
+                if (!activeSneak.get()) {
+                    mc.options.keyShift.setDown(false);
+                }
+            }
+            if (activeUse.get()) {
                 mc.options.keyUse.setDown(true);
             }
-        });
-
-        Set<Integer> pressed = ConcurrentHashMap.newKeySet();
-        NeoForge.EVENT_BUS.addListener((RenderFrameEvent.Post event) -> {
-            long windowId = mc.getWindow().getWindow();
-            pressed.clear();
-            IntStream.range(GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_LAST + 1)
-                    .filter(key -> GLFW.glfwGetKey(windowId, key) == GLFW.GLFW_PRESS)
-                    .boxed()
-                    .forEach(pressed::add);
+            if (activeSneak.get()) {
+                mc.options.keyShift.setDown(true);
+            }
         });
 
         modContainer.registerConfig(ModConfig.Type.COMMON, new ModConfigSpec.Builder().build());
