@@ -32,3 +32,14 @@ jobs:
           name: '${{ github.ref_name }} (${{ env.MINECRAFT_VERSION }})'
           body: 'Release generated at commit: ${{ github.sha }}'
           files: 'build/dist/*'
+
+      - uses: Kir-Antipov/mc-publish@v3
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          modrinth-id: 'Yrb3bSND'
+          modrinth-token: '${{ secrets.MODRINTH_TOKEN }}'
+          modrinth-featured: true
+          modrinth-unfeature-mode: any
+          files: 'build/dist/*'
+          loaders: 'neoforge'
+          game-versions: '${{ env.MINECRAFT_VERSION }}'
