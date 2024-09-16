@@ -47,12 +47,17 @@ public class Main {
                     key.toggle();
                     var message = Component.literal("Lazy")
                             .append(" ")
-                            .append(key.gameKey().getKey().getDisplayName().getString().toLowerCase())
-                            .append(" ")
+                            .append(key.gameKey().getName()
+                                    .replaceFirst("key\\.", ""))
+                            .append(" (")
+                            .append(key.gameKey().getKey().getName()
+                                    .replaceFirst("key\\.", "")
+                                    .replaceFirst("keyboard\\.", "")
+                                    .replaceAll("\\.", " "))
+                            .append(") ")
                             .append(key.state() ?
                                     Component.literal("enabled").withColor(0x00AA00) :
-                                    Component.literal("disabled").withColor(0xAA0000))
-                            .append(".");
+                                    Component.literal("disabled").withColor(0xAA0000));
                     mc.player.sendSystemMessage(message);
                     if (!key.state()) {
                         key.gameKey().setDown(false);
