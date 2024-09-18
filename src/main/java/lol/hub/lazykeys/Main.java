@@ -15,9 +15,13 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
-@Mod(value = "lazykeys", dist = {Dist.CLIENT})
+@Mod(value = Main.MODID, dist = {Dist.CLIENT})
 public class Main {
+
+    public static final String MODID = "lazykeys";
+
     public Main(IEventBus modEventBus, ModContainer modContainer) {
+
         var mc = Minecraft.getInstance();
         var keys = List.of(
                 new Key(mc.options.keyUse,
@@ -68,5 +72,7 @@ public class Main {
                 }
             }
         });
+
     }
+
 }
