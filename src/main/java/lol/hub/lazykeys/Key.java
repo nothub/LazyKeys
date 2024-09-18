@@ -18,9 +18,8 @@ public final class Key {
         this.state = false;
     }
 
-    public static Key of(KeyMapping actionKey, int toggleKey) {
-        var label = actionKey.getName().replaceFirst("key\\.", "key." + Main.MODID + ".");
-        return new Key(actionKey, new KeyMapping(label, toggleKey, "category." + Main.MODID));
+    public static Key of(KeyMapping actionKey, String label, int toggleKey) {
+        return new Key(actionKey, new KeyMapping(label, toggleKey, "category.lazykeys"));
     }
 
     public boolean active() {

@@ -13,20 +13,17 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
-@Mod(value = Main.MODID, dist = {Dist.CLIENT})
+@Mod(value = "lazykeys", dist = {Dist.CLIENT})
 public class Main {
-
-    public static final String MODID = "lazykeys";
-
     public Main(IEventBus modEventBus, ModContainer modContainer) {
 
         var mc = Minecraft.getInstance();
         var keys = List.of(
-                Key.of(mc.options.keyUse,    GLFW.GLFW_KEY_KP_2),
-                Key.of(mc.options.keyShift,  GLFW.GLFW_KEY_KP_3),
-                Key.of(mc.options.keyAttack, GLFW.GLFW_KEY_UNKNOWN),
-                Key.of(mc.options.keySprint, GLFW.GLFW_KEY_UNKNOWN),
-                Key.of(mc.options.keyJump,   GLFW.GLFW_KEY_UNKNOWN)
+                Key.of(mc.options.keyUse,    "key.lazykeys.use",    GLFW.GLFW_KEY_KP_2),
+                Key.of(mc.options.keyShift,  "key.lazykeys.sneak",  GLFW.GLFW_KEY_KP_3),
+                Key.of(mc.options.keyAttack, "key.lazykeys.attack", GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keySprint, "key.lazykeys.sprint", GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keyJump,   "key.lazykeys.jump",   GLFW.GLFW_KEY_UNKNOWN)
         );
 
         modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
@@ -65,5 +62,4 @@ public class Main {
         });
 
     }
-
 }
