@@ -2,39 +2,33 @@ package lol.hub.lazykeys;
 
 import net.minecraft.client.KeyMapping;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public final class Key {
 
     // Target key to be pressed automatically.
-    private final KeyMapping gameKey;
+    public final KeyMapping actionKey;
 
     // Key for the player to toggle active state.
-    private final KeyMapping stateKey;
+    public final KeyMapping toggleKey;
 
+    private boolean state;
 
-    private final AtomicBoolean state;
-
-    public Key(KeyMapping gameKey, KeyMapping stateKey) {
-        this.gameKey = gameKey;
-        this.stateKey = stateKey;
-        this.state = new AtomicBoolean(false);
+    public Key(KeyMapping actionKey, KeyMapping toggleKey) {
+        this.actionKey = actionKey;
+        this.toggleKey = toggleKey;
+        this.state = false;
     }
 
-    public KeyMapping gameKey() {
-        return gameKey;
+    public static Key of(KeyMapping actionKey, int toggleKey) {
+        var label = actionKey.getName().replaceFirst("key\\.", "key." + Main.MODID + ".");
+        return new Key(actionKey, new KeyMapping(label, toggleKey, "category." + Main.MODID));
     }
 
-    public KeyMapping stateKey() {
-        return stateKey;
-    }
-
-    public boolean state() {
-        return state.get();
+    public boolean active() {
+        return state;
     }
 
     public void toggle() {
-        state.set(!state.get());
+        state = !state;
     }
 
 }

@@ -1,7 +1,5 @@
 package lol.hub.lazykeys;
 
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
@@ -24,51 +22,44 @@ public class Main {
 
         var mc = Minecraft.getInstance();
         var keys = List.of(
-                new Key(mc.options.keyUse,
-                        new KeyMapping(
-                                "key.lazykeys.use",
-                                InputConstants.Type.KEYSYM,
-                                GLFW.GLFW_KEY_KP_2,
-                                "category.lazykeys")),
-                new Key(mc.options.keyShift,
-                        new KeyMapping(
-                                "key.lazykeys.sneak",
-                                InputConstants.Type.KEYSYM,
-                                GLFW.GLFW_KEY_KP_3,
-                                "category.lazykeys"))
+                Key.of(mc.options.keyUse,    GLFW.GLFW_KEY_KP_2),
+                Key.of(mc.options.keyShift,  GLFW.GLFW_KEY_KP_3),
+                Key.of(mc.options.keyAttack, GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keySprint, GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keyJump,   GLFW.GLFW_KEY_UNKNOWN)
         );
 
         modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
             for (Key key : keys) {
-                event.register(key.stateKey());
+                event.register(key.toggleKey);
             }
         });
 
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Pre event) -> {
             if (mc.player == null) return;
             for (Key key : keys) {
-                if (key.stateKey().consumeClick()) {
+                if (key.toggleKey.consumeClick()) {
                     key.toggle();
                     var message = Component.literal("Lazy")
                             .append(" ")
-                            .append(key.gameKey().getName()
+                            .append(key.actionKey.getName()
                                     .replaceFirst("key\\.", ""))
                             .append(" (")
-                            .append(key.gameKey().getKey().getName()
+                            .append(key.actionKey.getKey().getName()
                                     .replaceFirst("key\\.", "")
                                     .replaceFirst("keyboard\\.", "")
                                     .replaceAll("\\.", " "))
                             .append(") ")
-                            .append(key.state() ?
+                            .append(key.active() ?
                                     Component.literal("enabled").withColor(0x00AA00) :
                                     Component.literal("disabled").withColor(0xAA0000));
                     mc.player.sendSystemMessage(message);
-                    if (!key.state()) {
-                        key.gameKey().setDown(false);
+                    if (!key.active()) {
+                        key.actionKey.setDown(false);
                     }
                 }
-                if (key.state()) {
-                    key.gameKey().setDown(true);
+                if (key.active()) {
+                    key.actionKey.setDown(true);
                 }
             }
         });

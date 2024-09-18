@@ -1,5 +1,8 @@
 {
-  "category.lazykeys": "Lazy Keys",
-  "key.lazykeys.use": "Toggle Use",
-  "key.lazykeys.sneak": "Toggle Sneak"
+  "category.lazykeys":   "Lazy Keys",
+  "key.lazykeys.use":    "Toggle Use/Place",
+  "key.lazykeys.sneak":  "Toggle Sneak",
+  "key.lazykeys.attack": "Toggle Attack/Break",
+  "key.lazykeys.sprint": "Toggle Sprint",
+  "key.lazykeys.jump":   "Toggle Jump"
 }
