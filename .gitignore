@@ -1,26 +1,10 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+/.devbox/
+/devbox.lock
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
+/.idea/
+/.vscode/
 
-# gradle
-build
-.gradle
+/.gradle/
+/build/
 
-# other
-eclipse
-run
-runs
-run-data
-
-repo
+/run/

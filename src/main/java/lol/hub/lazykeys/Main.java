@@ -1,38 +1,43 @@
 package lol.hub.lazykeys;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
-@Mod(value = "lazykeys", dist = {Dist.CLIENT})
+@Mod(value = "lazykeys")
 public class Main {
-    public Main(IEventBus modEventBus, ModContainer modContainer) {
+    public Main() {
 
         var mc = Minecraft.getInstance();
         var keys = List.of(
-                Key.of(mc.options.keyUse,    "key.lazykeys.use",    GLFW.GLFW_KEY_KP_2),
-                Key.of(mc.options.keyShift,  "key.lazykeys.sneak",  GLFW.GLFW_KEY_KP_3),
-                Key.of(mc.options.keyAttack, "key.lazykeys.attack", GLFW.GLFW_KEY_UNKNOWN),
-                Key.of(mc.options.keySprint, "key.lazykeys.sprint", GLFW.GLFW_KEY_UNKNOWN),
-                Key.of(mc.options.keyJump,   "key.lazykeys.jump",   GLFW.GLFW_KEY_UNKNOWN)
+                Key.of(mc.options.keyUse,    I18n.get("key.lazykeys.use"),    GLFW.GLFW_KEY_KP_2),
+                Key.of(mc.options.keyShift,  I18n.get("key.lazykeys.sneak"),  GLFW.GLFW_KEY_KP_3),
+                Key.of(mc.options.keyAttack, I18n.get("key.lazykeys.attack"), GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keySprint, I18n.get("key.lazykeys.sprint"), GLFW.GLFW_KEY_UNKNOWN),
+                Key.of(mc.options.keyJump,   I18n.get("key.lazykeys.jump"),   GLFW.GLFW_KEY_UNKNOWN)
         );
 
+        //noinspection removal
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
             for (Key key : keys) {
                 event.register(key.toggleKey);
             }
         });
 
-        NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Pre event) -> {
+        MinecraftForge.EVENT_BUS.addListener((TickEvent.PlayerTickEvent event) -> {
             if (mc.player == null) return;
             for (Key key : keys) {
                 if (key.toggleKey.consumeClick()) {
@@ -48,8 +53,8 @@ public class Main {
                                     .replaceAll("\\.", " "))
                             .append(") ")
                             .append(key.active() ?
-                                    Component.literal("enabled").withColor(0x00AA00) :
-                                    Component.literal("disabled").withColor(0xAA0000));
+                                    Component.literal("enabled").withStyle(ChatFormatting.GREEN) :
+                                    Component.literal("disabled").withStyle(ChatFormatting.RED));
                     mc.player.sendSystemMessage(message);
                     if (!key.active()) {
                         key.actionKey.setDown(false);
