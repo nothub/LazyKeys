@@ -2,6 +2,7 @@
   "category.lazykeys":   "LazyKeys",
   "key.lazykeys.use":    "Toggle Use/Place",
   "key.lazykeys.sneak":  "Toggle Sneak",
+  "key.lazykeys.twerk":  "Toggle Twerk",
   "key.lazykeys.attack": "Toggle Attack/Break",
   "key.lazykeys.sprint": "Toggle Sprint",
   "key.lazykeys.jump":   "Toggle Jump"

@@ -12,6 +12,7 @@ This is especially useful in environments, where F3+T crashes the vanilla client
 |---------------|-------------|
 | Use/Place     | Numpad 2    |
 | Sneak         | Numpad 3    |
+| Twerk         | Numpad 4    |
 | Attack/Break  | -           |
 | Sprint        | -           |
 | Jump          | -           |
