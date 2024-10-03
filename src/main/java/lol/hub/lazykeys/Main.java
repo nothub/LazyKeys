@@ -61,8 +61,8 @@ public class Main {
                                     .replaceAll("\\.", " "))
                             .append(") ")
                             .append(key.active() ?
-                                    Component.literal("enabled").withColor(0x00AA00) :
-                                    Component.literal("disabled").withColor(0xAA0000));
+                                    Component.literal("enabled").withStyle(ChatFormatting.GREEN) :
+                                    Component.literal("disabled").withStyle(ChatFormatting.RED));
                     mc.player.sendSystemMessage(message);
                     if (!key.active()) {
                         key.actionKey.setDown(false);
