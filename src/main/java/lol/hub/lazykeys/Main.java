@@ -85,7 +85,7 @@ public class Main {
                 }
             }
             if (twerkState.get()) {
-                if (twerkLastMove.get().plusMillis(235).isBefore(Instant.now())) {
+                if (twerkLastMove.get().plusMillis(250).isBefore(Instant.now())) {
                     mc.options.keyShift.setDown(!mc.options.keyShift.isDown());
                     twerkLastMove.set(Instant.now());
                 }
