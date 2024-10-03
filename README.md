@@ -1,5 +1,10 @@
 # LazyKeys
 
+[modrinth](https://modrinth.com/mod/lazykeys)  
+[curseforge](https://www.curseforge.com/minecraft/mc-mods/lazykeys)
+
+---
+
 This mod allows for some **player actions** to be **toggled on or off** with a keypress,
 thus allowing users to e.g. **spam** the "use" **action** and **tab out** of the game.
 
