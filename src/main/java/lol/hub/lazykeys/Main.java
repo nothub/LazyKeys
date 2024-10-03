@@ -34,7 +34,7 @@ public class Main {
 
         var twerkKey = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, "category.lazykeys");
         var twerkState = new AtomicBoolean();
-        AtomicReference<Instant> twerkLastMove = new AtomicReference<>(Instant.now().minusSeconds(1));
+        var twerkLastMove = new AtomicReference<>(Instant.now().minusSeconds(1));
 
         modEventBus.addListener((RegisterKeyMappingsEvent event) -> {
             for (Key key : toggleKeys) {
