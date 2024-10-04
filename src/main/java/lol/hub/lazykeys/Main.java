@@ -78,7 +78,7 @@ public class Main {
             // twerking
             if (twerkKey.consumeClick()) {
                 twerkState.set(!twerkState.get());
-                var message = Component.literal("Twerking ").append(twerkState.get() ?
+                var message = Component.literal("Lazy twerking ").append(twerkState.get() ?
                         Component.literal("enabled" ).withStyle(ChatFormatting.GREEN) :
                         Component.literal("disabled").withStyle(ChatFormatting.RED));
                 mc.player.sendSystemMessage(message);
