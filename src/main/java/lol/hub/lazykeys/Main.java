@@ -63,7 +63,7 @@ public class Main {
                             .append(key.active() ?
                                     Component.literal("enabled").withStyle(ChatFormatting.GREEN) :
                                     Component.literal("disabled").withStyle(ChatFormatting.RED));
-                    mc.player.sendSystemMessage(message);
+                    mc.player.displayClientMessage(message, false);
                     if (!key.active()) {
                         key.actionKey.setDown(false);
                     }
@@ -79,7 +79,7 @@ public class Main {
                 var message = Component.literal("Lazy twerking ").append(twerkState.get() ?
                         Component.literal("enabled" ).withStyle(ChatFormatting.GREEN) :
                         Component.literal("disabled").withStyle(ChatFormatting.RED));
-                mc.player.sendSystemMessage(message);
+                mc.player.displayClientMessage(message, false);
                 if (!twerkState.get()) {
                     mc.options.keyShift.setDown(false);
                 }
