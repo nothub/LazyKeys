@@ -1,7 +1,8 @@
 # LazyKeys
 
-[modrinth](https://modrinth.com/mod/lazykeys)  
-[curseforge](https://www.curseforge.com/minecraft/mc-mods/lazykeys)
+[Modrinth](https://modrinth.com/mod/lazykeys)  
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/lazykeys)  
+[GitHub](https://github.com/nothub/lazykeys/releases)
 
 ---
 
