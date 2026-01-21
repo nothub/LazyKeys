@@ -19,7 +19,7 @@ public final class Key {
     }
 
     public static Key of(KeyMapping actionKey, String label, int toggleKey) {
-        return new Key(actionKey, new KeyMapping(label, toggleKey, "category.lazykeys"));
+        return new Key(actionKey, new KeyMapping(label, toggleKey, KeyMapping.Category.MISC));
     }
 
     public boolean active() {

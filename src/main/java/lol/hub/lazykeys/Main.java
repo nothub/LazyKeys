@@ -32,7 +32,7 @@ public class Main {
                 Key.of(mc.options.keyJump,   "key.lazykeys.jump",   GLFW.GLFW_KEY_UNKNOWN)
         );
 
-        var twerkKey = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, "category.lazykeys");
+        var twerkKey = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, KeyMapping.Category.MISC);
         var twerkState = new AtomicBoolean();
         var twerkLastMove = new AtomicReference<>(Instant.now().minusSeconds(1));
 
