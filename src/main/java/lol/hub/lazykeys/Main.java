@@ -83,9 +83,9 @@ public class Main {
         var stateText = key.active() ? Component.literal("enabled")
                 .withStyle(ChatFormatting.GREEN) : Component.literal("disabled")
                 .withStyle(ChatFormatting.RED);
-        mc.player.displayClientMessage(Component.literal("Lazy ")
+        mc.player.sendSystemMessage(Component.literal("Lazy ")
                 .append(label)
-                .append(stateText), false);
+                .append(stateText));
         if (!key.active()) key.actionKey.setDown(false);
     }
 
