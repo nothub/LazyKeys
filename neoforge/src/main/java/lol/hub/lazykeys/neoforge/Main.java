@@ -3,6 +3,7 @@ package lol.hub.lazykeys.neoforge;
 import lol.hub.lazykeys.LazyKeysCore;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -14,7 +15,8 @@ import net.neoforged.neoforge.common.NeoForge;
 @Mod(value = "lazykeys", dist = {Dist.CLIENT})
 public class Main {
 
-    private static final LazyKeysCore CORE = new LazyKeysCore();
+    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath("lazykeys", "keys"));
+    private static final LazyKeysCore CORE = new LazyKeysCore(CATEGORY);
 
     public Main(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(Main::onRegisterKeyMappings);
@@ -22,6 +24,7 @@ public class Main {
     }
 
     private static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+        event.registerCategory(CATEGORY);
         for (KeyMapping mapping : CORE.keyMappings()) {
             event.register(mapping);
         }

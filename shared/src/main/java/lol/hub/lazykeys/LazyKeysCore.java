@@ -10,6 +10,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+// Category registration differs enough per loader (NeoForge deprecates the
+// plain KeyMapping.Category.register(...) in favor of an event call; Fabric
+// uses it directly) that it stays out of here -- everything else that's
+// identical between loaders lives in this one place instead.
 public final class LazyKeysCore {
 
     public final KeyMapping toggleUse;
@@ -23,13 +27,13 @@ public final class LazyKeysCore {
     private final IntervalGate twerkGate = new IntervalGate(Duration.ofMillis(125));
     private Key twerk;
 
-    public LazyKeysCore() {
-        toggleUse = new KeyMapping("key.lazykeys.use", GLFW.GLFW_KEY_KP_2, KeyMapping.Category.MISC);
-        toggleSneak = new KeyMapping("key.lazykeys.sneak", GLFW.GLFW_KEY_KP_3, KeyMapping.Category.MISC);
-        toggleAttack = new KeyMapping("key.lazykeys.attack", GLFW.GLFW_KEY_UNKNOWN, KeyMapping.Category.MISC);
-        toggleSprint = new KeyMapping("key.lazykeys.sprint", GLFW.GLFW_KEY_UNKNOWN, KeyMapping.Category.MISC);
-        toggleJump = new KeyMapping("key.lazykeys.jump", GLFW.GLFW_KEY_UNKNOWN, KeyMapping.Category.MISC);
-        toggleTwerk = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, KeyMapping.Category.MISC);
+    public LazyKeysCore(KeyMapping.Category category) {
+        toggleUse = new KeyMapping("key.lazykeys.use", GLFW.GLFW_KEY_KP_2, category);
+        toggleSneak = new KeyMapping("key.lazykeys.sneak", GLFW.GLFW_KEY_KP_3, category);
+        toggleAttack = new KeyMapping("key.lazykeys.attack", GLFW.GLFW_KEY_UNKNOWN, category);
+        toggleSprint = new KeyMapping("key.lazykeys.sprint", GLFW.GLFW_KEY_UNKNOWN, category);
+        toggleJump = new KeyMapping("key.lazykeys.jump", GLFW.GLFW_KEY_UNKNOWN, category);
+        toggleTwerk = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, category);
     }
 
     public List<KeyMapping> keyMappings() {

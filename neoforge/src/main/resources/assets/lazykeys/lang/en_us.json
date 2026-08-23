@@ -1,8 +1,9 @@
 {
-  "key.lazykeys.use":    "Lazy-toggle Use/Place",
-  "key.lazykeys.sneak":  "Lazy-toggle Sneak",
-  "key.lazykeys.twerk":  "Lazy-toggle Twerk",
-  "key.lazykeys.attack": "Lazy-toggle Attack/Break",
-  "key.lazykeys.sprint": "Lazy-toggle Sprint",
-  "key.lazykeys.jump":   "Lazy-toggle Jump"
+  "key.category.lazykeys.keys": "LazyKeys",
+  "key.lazykeys.use":    "Use/Place",
+  "key.lazykeys.sneak":  "Sneak",
+  "key.lazykeys.twerk":  "Twerk",
+  "key.lazykeys.attack": "Attack/Break",
+  "key.lazykeys.sprint": "Sprint",
+  "key.lazykeys.jump":   "Jump"
 }
