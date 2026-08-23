@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "@mod_id@",
+  "version": "@mod_version@",
+  "name": "@mod_name@",
+  "description": "@mod_description@",
+  "authors": [
+    "@mod_authors@"
+  ],
+  "contact": {
+    "homepage": "https://github.com/nothub/lazykeys",
+    "issues": "https://github.com/nothub/lazykeys/issues"
+  },
+  "license": "@mod_license@",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "lol.hub.lazykeys.fabric.Main"
+    ]
+  },
+  "depends": {
+    "minecraft": "@minecraft_version@",
+    "fabricloader": ">=@fabric_loader_version@",
+    "fabric-api": ">=@fabric_api_version@"
+  }
+}

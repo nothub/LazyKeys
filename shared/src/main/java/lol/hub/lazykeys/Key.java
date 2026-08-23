@@ -10,24 +10,19 @@ public final class Key {
     // Key for the player to toggle active state.
     public final KeyMapping toggleKey;
 
-    private boolean state;
+    private final ToggleState state = new ToggleState();
 
     public Key(KeyMapping actionKey, KeyMapping toggleKey) {
         this.actionKey = actionKey;
         this.toggleKey = toggleKey;
-        this.state = false;
-    }
-
-    public static Key of(KeyMapping actionKey, String label, int toggleKey) {
-        return new Key(actionKey, new KeyMapping(label, toggleKey, KeyMapping.Category.MISC));
     }
 
     public boolean active() {
-        return state;
+        return state.active();
     }
 
     public void toggle() {
-        state = !state;
+        state.toggle();
     }
 
 }
