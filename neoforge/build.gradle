@@ -110,7 +110,7 @@ jar {
 }
 
 jar.archiveFileName.set(artifactName('neoforge', 'jar'))
-jar.destinationDirectory.set(layout.buildDirectory.dir('dist'))
+jar.destinationDirectory.set(rootProject.layout.buildDirectory.dir('dist'))
 
 clean {
     delete "${projectDir}/run"

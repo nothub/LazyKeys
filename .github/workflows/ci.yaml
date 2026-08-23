@@ -35,9 +35,7 @@ jobs:
         with:
           name: '${{ github.ref_name }} (${{ env.MINECRAFT_VERSION }})'
           body: 'Release generated at commit: ${{ github.sha }}'
-          files: |
-            fabric/build/dist/*
-            neoforge/build/dist/*
+          files: 'build/dist/*'
 
       - uses: Kir-Antipov/mc-publish@v3
         if: startsWith(github.ref, 'refs/tags/v')
@@ -49,7 +47,7 @@ jobs:
           curseforge-id: '1113113'
           curseforge-token: '${{ secrets.CURSEFORGE_TOKEN }}'
           version: '${{ env.MOD_VERSION }}'
-          files: 'fabric/build/dist/*'
+          files: 'build/dist/*-fabric.jar'
           loaders: 'fabric'
           game-versions: '${{ env.MINECRAFT_VERSION }}'
 
@@ -63,6 +61,6 @@ jobs:
           curseforge-id: '1113113'
           curseforge-token: '${{ secrets.CURSEFORGE_TOKEN }}'
           version: '${{ env.MOD_VERSION }}'
-          files: 'neoforge/build/dist/*'
+          files: 'build/dist/*-neoforge.jar'
           loaders: 'neoforge'
           game-versions: '${{ env.MINECRAFT_VERSION }}'
