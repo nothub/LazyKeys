@@ -44,6 +44,20 @@ class IntervalGateTest {
         assertTrue(gate.tryFire());
     }
 
+    // Pins down the boundary as inclusive (elapsed >= interval fires),
+    // matching standard rate-limiter semantics -- not an accident to be
+    // silently reverted to a strict '>' by a future refactor.
+    @Test
+    void firesExactlyAtInterval() {
+        var clock = new MutableClock(Instant.EPOCH);
+        var gate = new IntervalGate(INTERVAL, clock);
+        gate.tryFire();
+
+        clock.advance(INTERVAL);
+
+        assertTrue(gate.tryFire());
+    }
+
     private static final class MutableClock extends Clock {
 
         private Instant now;
