@@ -1,5 +1,7 @@
 # LazyKeys
 
+Automated key-pressing for enhanced afk farming efficiency
+
 [Modrinth](https://modrinth.com/mod/lazykeys)  
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/lazykeys)  
 [GitHub](https://github.com/nothub/lazykeys/releases)
