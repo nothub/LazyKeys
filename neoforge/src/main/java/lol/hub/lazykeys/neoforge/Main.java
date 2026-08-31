@@ -30,13 +30,6 @@ public class Main {
         }
     }
 
-    // PlayerTickEvent.Post fires once per Player entity tick, which on an
-    // integrated server means once on the client/render thread (the local
-    // player) AND once on the separate server thread (the server-side
-    // player) -- the latter crashes anything here that touches rendering
-    // (e.g. sendSystemMessage baking a not-yet-cached font glyph). Use the
-    // client-only tick event instead: fires exactly once per client tick,
-    // same as Fabric's ClientTickEvents.END_CLIENT_TICK already does.
     private static void onClientTick(ClientTickEvent.Post event) {
         CORE.onTick(Minecraft.getInstance());
     }

@@ -10,10 +10,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-// Category registration differs enough per loader (NeoForge deprecates the
-// plain KeyMapping.Category.register(...) in favor of an event call; Fabric
-// uses it directly) that it stays out of here -- everything else that's
-// identical between loaders lives in this one place instead.
 public final class LazyKeysCore {
 
     public final KeyMapping toggleUse;
@@ -40,9 +36,6 @@ public final class LazyKeysCore {
         return List.of(toggleUse, toggleSneak, toggleAttack, toggleSprint, toggleJump, toggleTwerk);
     }
 
-    // mc.options fields aren't guaranteed to be populated yet by the time a
-    // mod entrypoint runs on every loader -- build the Key wrappers lazily on
-    // the first tick instead, once the client is fully up either way.
     public void onTick(Minecraft mc) {
         if (mc.level == null || mc.player == null) return;
 
