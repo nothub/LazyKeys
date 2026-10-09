@@ -72,4 +72,6 @@ jobs:
           version: '${{ env.MOD_VERSION }}'
           files: 'build/dist/*-neoforge.jar'
           loaders: 'neoforge'
+          # neoforge.mods.toml has no mod-level side, so mc-publish can't infer client-only from it.
+          environment: 'client'
           game-versions: '${{ env.MINECRAFT_VERSION }}'
