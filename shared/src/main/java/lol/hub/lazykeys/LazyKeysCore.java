@@ -1,10 +1,10 @@
 package lol.hub.lazykeys;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -24,12 +24,12 @@ public final class LazyKeysCore {
     private Key twerk;
 
     public LazyKeysCore(KeyMapping.Category category) {
-        toggleUse = new KeyMapping("key.lazykeys.use", GLFW.GLFW_KEY_KP_2, category);
-        toggleSneak = new KeyMapping("key.lazykeys.sneak", GLFW.GLFW_KEY_KP_3, category);
-        toggleAttack = new KeyMapping("key.lazykeys.attack", GLFW.GLFW_KEY_UNKNOWN, category);
-        toggleSprint = new KeyMapping("key.lazykeys.sprint", GLFW.GLFW_KEY_UNKNOWN, category);
-        toggleJump = new KeyMapping("key.lazykeys.jump", GLFW.GLFW_KEY_UNKNOWN, category);
-        toggleTwerk = new KeyMapping("key.lazykeys.twerk", GLFW.GLFW_KEY_KP_4, category);
+        toggleUse = new KeyMapping("key.lazykeys.use", InputConstants.KEY_NUMPAD2, category);
+        toggleSneak = new KeyMapping("key.lazykeys.sneak", InputConstants.KEY_NUMPAD3, category);
+        toggleAttack = new KeyMapping("key.lazykeys.attack", InputConstants.UNKNOWN.getValue(), category);
+        toggleSprint = new KeyMapping("key.lazykeys.sprint", InputConstants.UNKNOWN.getValue(), category);
+        toggleJump = new KeyMapping("key.lazykeys.jump", InputConstants.UNKNOWN.getValue(), category);
+        toggleTwerk = new KeyMapping("key.lazykeys.twerk", InputConstants.KEY_NUMPAD4, category);
     }
 
     public List<KeyMapping> keyMappings() {
