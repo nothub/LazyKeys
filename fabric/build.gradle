@@ -75,6 +75,5 @@ jar.archiveFileName.set(artifactName('fabric', 'jar'))
 jar.destinationDirectory.set(rootProject.layout.buildDirectory.dir('dist'))
 
 clean {
-    delete "${rootDir}/remappedSrc"
     delete "${projectDir}/run"
 }
