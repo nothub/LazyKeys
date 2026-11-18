@@ -1,7 +1,3 @@
 plugins {
     id 'base'
 }
-
-tasks.named('wrapper', Wrapper).configure {
-    distributionType = Wrapper.DistributionType.BIN
-}
