@@ -2,7 +2,7 @@
 
 Fabric & NeoForge mod. Automated key-pressing for enhanced afk farming efficiency.
 
-[![GitHub](https://img.shields.io/github/stars/nothub/lazykeys?style=flat&label=GitHub&logo=github&color=181717)](https://github.com/nothub/lazykeys)
+[![GitHub](https://img.shields.io/github/downloads/nothub/lazykeys/total?style=flat&label=GitHub&logo=github&color=181717)](https://github.com/nothub/lazykeys/releases)
 [![Modrinth](https://img.shields.io/modrinth/dt/Yrb3bSND?style=flat&label=Modrinth&logo=modrinth&color=1bd96a)](https://modrinth.com/mod/lazykeys)
 [![CurseForge](https://img.shields.io/curseforge/dt/1113113?style=flat&label=CurseForge&logo=curseforge&color=f16436)](https://www.curseforge.com/minecraft/mc-mods/lazykeys)
 
